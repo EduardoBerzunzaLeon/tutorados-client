@@ -9,7 +9,9 @@ import 'primereact/resources/themes/bootstrap4-light-purple/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
-import Menu from './components/sidebar/menu.component';
+
+import MainMenu from './components/mainMenu/MainMenu';
+import { Routes } from './routes/Routes';
 
 function App() {
   const [text, setText] = useState('');
@@ -31,7 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      <Menu />
+      <MainMenu />
       <Toast ref={toastRef} />
 
       <form className="p-d-flex p-jc-center p-mt-6" onSubmit={onFormSubmit}>
@@ -43,6 +45,8 @@ function App() {
           className="p-ml-2"
         />
       </form>
+
+      <Routes />
     </div>
   );
 }

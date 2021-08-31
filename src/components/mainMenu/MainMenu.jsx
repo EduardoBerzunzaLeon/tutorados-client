@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 
-const Menu = () => {
+const MainMenu = () => {
   const [visibleLeft, setVisibleLeft] = useState(false);
   const [visibleRight, setVisibleRight] = useState(false);
   const [visibleTop, setVisibleTop] = useState(false);
@@ -102,4 +102,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default MainMenu;
