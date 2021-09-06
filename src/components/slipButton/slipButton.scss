@@ -1,190 +1,195 @@
-.p-button {
-  margin-right: 0.5rem;
-}
-.p-buttonset .p-button {
-  margin-right: 0;
+.container-slip {
+  .button-slip {
+    margin-right: 0.5rem;
+
+    i {
+      line-height: 2.25rem;
+    }
+
+    &.p-button.purple {
+      background: linear-gradient(
+        to left,
+        var(--purple-600) 50%,
+        var(--purple-700) 50%
+      );
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 0.5s ease-out;
+      color: #fff;
+      border-color: var(--purple-700);
+      &:hover {
+        background-position: left bottom;
+      }
+      i {
+        background-color: var(--purple-700);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px var(--purple-400);
+      }
+    }
+
+    &.p-button.green {
+      background: linear-gradient(
+        to left,
+        var(--green-200) 50%,
+        var(--green-300) 50%
+      );
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 0.5s ease-out;
+      color: #000;
+      border-color: var(--green-300);
+      &:hover {
+        background-position: left bottom;
+      }
+      i {
+        background-color: var(--green-300);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px var(--green-400);
+      }
+    }
+
+    &.p-button.indigo {
+      background: linear-gradient(
+        to left,
+        var(--indigo-600) 50%,
+        var(--indigo-700) 50%
+      );
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 0.5s ease-out;
+      color: #fff;
+      border-color: var(--indigo-700);
+      &:hover {
+        background-position: left bottom;
+      }
+      i {
+        background-color: var(--indigo-700);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px var(--indigo-400);
+      }
+    }
+
+    &.p-button.blue {
+      background: linear-gradient(
+        to left,
+        var(--blue-400) 50%,
+        var(--blue-500) 50%
+      );
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 0.5s ease-out;
+      color: #fff;
+      border-color: var(--blue-500);
+      &:hover {
+        background-position: left bottom;
+      }
+      i {
+        background-color: var(--blue-500);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px var(--blue-200);
+      }
+    }
+
+    &.p-button.orange {
+      background: linear-gradient(
+        to left,
+        var(--orange-400) 50%,
+        var(--orange-500) 50%
+      );
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 0.5s ease-out;
+      color: #fff;
+      border-color: var(--orange-500);
+      &:hover {
+        background-position: left bottom;
+      }
+      i {
+        background-color: var(--orange-500);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px var(--orange-200);
+      }
+    }
+
+    &.p-button.yellow {
+      background: linear-gradient(
+        to left,
+        var(--yellow-400) 50%,
+        var(--yellow-500) 50%
+      );
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 0.5s ease-out;
+      color: #000;
+      border-color: var(--yellow-500);
+      &:hover {
+        background-position: left bottom;
+      }
+      i {
+        background-color: var(--yellow-500);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px var(--yellow-200);
+      }
+    }
+
+    &.p-button.bluegray {
+      background: linear-gradient(
+        to left,
+        var(--bluegray-700) 50%,
+        var(--bluegray-800) 50%
+      );
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 0.5s ease-out;
+      color: #fff;
+      border-color: var(--bluegray-800);
+      &:hover {
+        background-position: left bottom;
+      }
+      i {
+        background-color: var(--bluegray-800);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px var(--bluegray-500);
+      }
+    }
+
+    &.p-button.pink {
+      background: linear-gradient(
+        to left,
+        var(--pink-600) 50%,
+        var(--pink-700) 50%
+      );
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 0.5s ease-out;
+      color: #fff;
+      border-color: var(--pink-700);
+      &:hover {
+        background-position: left bottom;
+      }
+      i {
+        background-color: var(--pink-700);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px var(--pink-400);
+      }
+    }
+  }
 }
 
-.p-button i {
-  line-height: 2.25rem;
-}
-.p-button.google {
-  background: linear-gradient(
-    to left,
-    var(--purple-600) 50%,
-    var(--purple-700) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #fff;
-  border-color: var(--purple-700);
-}
-.p-button.google:hover {
-  background-position: left bottom;
-}
-.p-button.google i {
-  background-color: var(--purple-700);
-}
-.p-button.google:focus {
-  box-shadow: 0 0 0 1px var(--purple-400);
-}
-.p-button.youtube {
-  background: linear-gradient(
-    to left,
-    var(--pink-600) 50%,
-    var(--pink-700) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #fff;
-  border-color: var(--pink-700);
-}
-.p-button.youtube:hover {
-  background-position: left bottom;
-}
-.p-button.youtube i {
-  background-color: var(--pink-700);
-}
-.p-button.youtube:focus {
-  box-shadow: 0 0 0 1px var(--pink-400);
-}
-.p-button.vimeo {
-  background: linear-gradient(
-    to left,
-    var(--green-200) 50%,
-    var(--green-300) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #000;
-  border-color: var(--green-300);
-}
-.p-button.vimeo:hover {
-  background-position: left bottom;
-}
-.p-button.vimeo i {
-  background-color: var(--green-300);
-}
-.p-button.vimeo:focus {
-  box-shadow: 0 0 0 1px var(--green-400);
-}
-.p-button.facebook {
-  background: linear-gradient(
-    to left,
-    var(--indigo-600) 50%,
-    var(--indigo-700) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #fff;
-  border-color: var(--indigo-700);
-}
-.p-button.facebook:hover {
-  background-position: left bottom;
-}
-.p-button.facebook i {
-  background-color: var(--indigo-700);
-}
-.p-button.facebook:focus {
-  box-shadow: 0 0 0 1px var(--indigo-400);
-}
-.p-button.twitter {
-  background: linear-gradient(
-    to left,
-    var(--blue-400) 50%,
-    var(--blue-500) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #fff;
-  border-color: var(--blue-500);
-}
-.p-button.twitter:hover {
-  background-position: left bottom;
-}
-.p-button.twitter i {
-  background-color: var(--blue-500);
-}
-.p-button.twitter:focus {
-  box-shadow: 0 0 0 1px var(--blue-200);
-}
-.p-button.slack {
-  background: linear-gradient(
-    to left,
-    var(--orange-400) 50%,
-    var(--orange-500) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #fff;
-  border-color: var(--orange-500);
-}
-.p-button.slack:hover {
-  background-position: left bottom;
-}
-.p-button.slack i {
-  background-color: var(--orange-500);
-}
-.p-button.slack:focus {
-  box-shadow: 0 0 0 1px var(--orange-200);
-}
-.p-button.amazon {
-  background: linear-gradient(
-    to left,
-    var(--yellow-400) 50%,
-    var(--yellow-500) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #000;
-  border-color: var(--yellow-500);
-}
-.p-button.amazon:hover {
-  background-position: left bottom;
-}
-.p-button.amazon i {
-  background-color: var(--yellow-500);
-}
-.p-button.amazon:focus {
-  box-shadow: 0 0 0 1px var(--yellow-200);
-}
-.p-button.discord {
-  background: linear-gradient(
-    to left,
-    var(--bluegray-700) 50%,
-    var(--bluegray-800) 50%
-  );
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #fff;
-  border-color: var(--bluegray-800);
-}
-.p-button.discord:hover {
-  background-position: left bottom;
-}
-.p-button.discord i {
-  background-color: var(--bluegray-800);
-}
-.p-button.discord:focus {
-  box-shadow: 0 0 0 1px var(--bluegray-500);
-}
 @media screen and (max-width: 960px) {
-  .p-button {
+  .button-slip {
     margin-bottom: 0.5rem;
-  }
-  .p-button:not(.p-button-icon-only) {
-    display: flex;
-    width: 100%;
-  }
-  .p-buttonset .p-button {
-    margin-bottom: 0;
+    &:not(.p-button-icon-only) {
+      display: flex;
+      width: 100%;
+    }
   }
 }

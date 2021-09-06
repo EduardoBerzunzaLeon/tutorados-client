@@ -6,14 +6,28 @@ import { Password } from 'primereact/password';
 import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 
+import { SlipButton } from '../slipButton/SlipButton';
+
 import './cardLogin.scss';
 
 export const CardLogin = () => {
+  const header = (
+    <img
+      alt="login"
+      src="./login-card.png"
+      onError={(e) =>
+        (e.target.src =
+          'https://image.shutterstock.com/image-vector/man-key-near-computer-account-260nw-1499141258.jpg')
+      }
+    />
+  );
+
   return (
     <Card
-      title="Inicio Sesión"
+      title="Inicio de sesión"
       className="p-shadow-5"
       style={{ width: '28rem' }}
+      header={header}
     >
       <div className="p-fluid">
         <div className="p-field">
@@ -41,27 +55,14 @@ export const CardLogin = () => {
         </div>
         <Button label="Ingresar" />
       </div>
+
       <Divider align="center" type="dashed">
         <span>Ingresar por red social</span>
       </Divider>
-      <div className="button-slide">
-        <div className="template">
-          <Button className="google p-p-0">
-            <i className="pi pi-google p-px-2"></i>
-            <span className="p-px-3">Google</span>
-          </Button>
 
-          <Button className="facebook p-p-0">
-            <i className="pi pi-facebook p-px-2"></i>
-            <span className="p-px-3">Facebook</span>
-          </Button>
-
-          <Button className="twitter p-p-0">
-            <i className="pi pi-twitter p-px-2"></i>
-            <span className="p-px-3">Twiiter</span>
-          </Button>
-        </div>
-      </div>
+      <SlipButton color="purple" icon="google" label="Google" />
+      <SlipButton color="indigo" icon="facebook" label="Facebook" />
+      <SlipButton color="blue" icon="twitter" label="Twitter" />
     </Card>
   );
 };
