@@ -7,8 +7,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 
-import MainMenu from './components/mainMenu/MainMenu';
-import { Routes } from './routes/Routes';
+import { Routes } from './router/Router';
 
 function App() {
   // active ripple effect
@@ -16,7 +15,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <MainMenu /> */}
       <Routes />
     </div>
   );

@@ -6,15 +6,15 @@ import { Password } from 'primereact/password';
 import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 
-import { SlipButton } from '../slipButton/SlipButton';
+import { SlipButton } from '../../../components/slipButton/SlipButton';
 
-import './cardLogin.scss';
+import './loginScreen.scss';
 
-export const CardLogin = () => {
+export const LoginScreen = () => {
   const header = (
     <img
-      alt="login"
-      src="./login-card.png"
+      alt="login header"
+      src="../assets/images/login-header.jpg"
       onError={(e) =>
         (e.target.src =
           'https://image.shutterstock.com/image-vector/man-key-near-computer-account-260nw-1499141258.jpg')
