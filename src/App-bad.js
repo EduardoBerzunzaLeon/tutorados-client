@@ -1,17 +1,32 @@
-import { Sidebar } from 'primereact/sidebar';
-import React, { useState } from 'react';
-import { MenuProfile } from '../../../components/menuProfile/MenuProfile';
-import { MenuSlideContent } from '../../../components/menuSlideContent/MenuSlideContent';
-import { MenuTop } from '../../../components/menuTop/MenuTop';
+import React, { useState, useEffect, useRef } from 'react';
 
-import { LoadRoutes } from '../../../router/LoadRoutes';
+import PrimeReact from 'primereact/api';
+import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 
-import '../../../layout/flags/flags.css';
-import '../../../layout/layout.scss';
-import './adminLayout.scss';
+import 'primereact/resources/themes/bootstrap4-light-purple/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
 
-export const AdminLayout = ({ routes }) => {
+import { Routes } from './router/Router';
+
+import './layout/flags/flags.css';
+import './layout/layout.scss';
+import './app.scss';
+import { AppTopbar } from './screens/admin/adminLayout/AppTopBar';
+import { Sidebar as SidebarPrime } from 'primereact/sidebar';
+import { AppMenu } from './AppMenu';
+import { AppProfile } from './AppProfiler';
+function App() {
+  // active ripple effect
+  PrimeReact.ripple = true;
   const [sidebarActive, setSidebarActive] = useState(false);
+  const sidebar = useRef();
+
+  const history = useHistory();
+  let menuClick = false;
+  const [layoutMode, setLayoutMode] = useState('static');
 
   const menu = [
     { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
@@ -152,38 +167,75 @@ export const AdminLayout = ({ routes }) => {
     },
   ];
 
-  const onMenuItemClick = (event) => {
-    if (!event.item.items) {
-      setSidebarActive(false);
-    }
+  const onSidebarClick = () => {
+    menuClick = true;
   };
 
   const onToggleMenu = (event) => {
+    menuClick = true;
     setSidebarActive((prevState) => !prevState);
     event.preventDefault();
   };
 
+  const onMenuItemClick = (event) => {
+    if (!event.item.items && layoutMode === 'overlay') {
+      setSidebarActive(false);
+    }
+  };
+
+  const onWrapperClick = (event) => {
+    if (!menuClick && layoutMode === 'overlay') {
+      setSidebarActive(false);
+    }
+    menuClick = false;
+  };
+
+  const isSidebarVisible = () => {
+    return sidebarActive;
+  };
+
   return (
-    <div className="layout-wrapper layout-overlay">
-      <MenuTop onToggleMenu={onToggleMenu} />
-      <Sidebar
+    <div className="App layout-wrapper" onClick={onWrapperClick}>
+      <AppTopbar onToggleMenu={onToggleMenu} />
+
+      {/* <CSSTransition
+        classNames="layout-sidebar"
+        timeout={{ enter: 200, exit: 200 }}
+        in={isSidebarVisible()}
+        unmountOnExit
+      >
+        <div
+          ref={sidebar}
+          className={'layout-sidebar layout-sidebar-dark'}
+          onClick={onSidebarClick}
+        >
+          
+        </div>
+      </CSSTransition> */}
+      <SidebarPrime
         visible={sidebarActive}
         onHide={() => setSidebarActive(false)}
         showCloseIcon={false}
-        style={{ backgroundColor: '#4d505b' }}
       >
-        <MenuProfile />
-        <MenuSlideContent model={menu} onMenuItemClick={onMenuItemClick} />
-      </Sidebar>
-      <div className="layout-main">
-        <div className="p-grid">
-          <div className="p-col-12">
-            <div className="card">
-              <LoadRoutes routes={routes} />
-            </div>
-          </div>
-        </div>
-      </div>
+        {/* <div
+          className="layout-logo"
+          style={{ cursor: 'pointer' }}
+          onClick={() => history.push('/')}
+        >
+          <img alt="Logo" src="assets/layout/images/logo-white.svg" />
+        </div> */}
+        {/* <AppProfile /> */}
+        <Router>
+          <Route>
+            <AppProfile />
+            <AppMenu model={menu} onMenuItemClick={onMenuItemClick} />
+          </Route>
+        </Router>
+      </SidebarPrime>
+
+      {/* <Routes /> */}
     </div>
   );
-};
+}
+
+export default App;

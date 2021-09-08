@@ -5,7 +5,6 @@ export const LoadRoutes = ({ routes }) => {
   return (
     <Switch>
       {routes.map((route, index) => (
-        // <Route key={index} {...route} />
         <Route
           key={index}
           path={route.path}
