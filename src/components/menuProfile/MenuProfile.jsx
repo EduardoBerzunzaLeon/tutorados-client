@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import classNames from 'classnames';
+
 import { CSSTransition } from 'react-transition-group';
 
 export const MenuProfile = () => {
@@ -41,10 +44,12 @@ export const MenuProfile = () => {
               </button>
             </li>
             <li>
-              <button type="button" className="p-link">
-                <i className="pi pi-fw pi-power-off" />
-                <span>Logout</span>
-              </button>
+              <Link to="/login">
+                <button type="button" className="p-link">
+                  <i className="pi pi-fw pi-power-off" />
+                  <span>Logout</span>
+                </button>
+              </Link>
             </li>
           </ul>
         </CSSTransition>

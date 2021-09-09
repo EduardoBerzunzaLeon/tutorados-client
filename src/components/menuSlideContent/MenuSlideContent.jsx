@@ -107,7 +107,7 @@ const Submenu = (props) => {
 
 export const MenuSlideContent = (props) => {
   return (
-    <div className="layout-menu-container">
+    <div className="layout-menu-container layout-sidebar-dark">
       <Submenu
         items={props.model}
         className="layout-menu"

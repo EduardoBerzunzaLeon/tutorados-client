@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
@@ -7,8 +9,6 @@ import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 
 import { SlipButton } from '../../../components/slipButton/SlipButton';
-
-import './loginScreen.scss';
 
 export const LoginScreen = () => {
   const header = (
@@ -31,7 +31,7 @@ export const LoginScreen = () => {
     >
       <div className="p-fluid">
         <div className="p-field">
-          <label htmlFor="user">Usuario</label>
+          <label htmlFor="user">Correo</label>
           <div className="p-inputgroup">
             <span className="p-inputgroup-addon">
               <i className="pi pi-user"></i>
@@ -42,9 +42,9 @@ export const LoginScreen = () => {
         <div className="p-field">
           <div className="p-d-flex p-jc-between">
             <label htmlFor="password">Contraseña</label>
-            <a href="?" style={{ textDecoration: 'none' }}>
+            <Link to="forgot-password" style={{ textDecoration: 'none' }}>
               ¿Olvidaste la contraseña?
-            </a>
+            </Link>
           </div>
           <div className="p-inputgroup">
             <span className="p-inputgroup-addon">
@@ -52,8 +52,15 @@ export const LoginScreen = () => {
             </span>
             <Password toggleMask feedback={false} placeholder="******" />
           </div>
+          <div className="p-d-flex p-jc-end">
+            <Link style={{ textDecoration: 'none' }} to="/register">
+              No tengo cuenta
+            </Link>
+          </div>
         </div>
-        <Button label="Ingresar" />
+        <Link to="/admin">
+          <Button label="Ingresar" />
+        </Link>
       </div>
 
       <Divider align="center" type="dashed">
