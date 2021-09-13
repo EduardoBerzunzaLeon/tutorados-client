@@ -1,9 +1,13 @@
+import React from 'react';
+
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Sidebar } from 'primereact/sidebar';
-import React, { useState } from 'react';
+
+import { uiCloseSider } from '../../../redux/actions/ui';
 import { MenuProfile } from '../../../components/menuProfile/MenuProfile';
 import { MenuSlideContent } from '../../../components/menuSlideContent/MenuSlideContent';
 import { MenuTop } from '../../../components/menuTop/MenuTop';
-
 import { LoadRoutes } from '../../../router/LoadRoutes';
 import { menu } from '../../../utils/menuElements';
 
@@ -12,30 +16,20 @@ import '../../../layout/layout.scss';
 import './adminLayout.scss';
 
 export const AdminLayout = ({ routes }) => {
-  const [sidebarActive, setSidebarActive] = useState(false);
-
-  const onMenuItemClick = (event) => {
-    if (!event.item.items) {
-      setSidebarActive(false);
-    }
-  };
-
-  const onToggleMenu = (event) => {
-    setSidebarActive((prevState) => !prevState);
-    event.preventDefault();
-  };
+  const { siderOpen } = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
 
   return (
     <div className="layout-wrapper layout-overlay">
-      <MenuTop onToggleMenu={onToggleMenu} />
+      <MenuTop />
       <Sidebar
-        visible={sidebarActive}
-        onHide={() => setSidebarActive(false)}
+        visible={siderOpen}
+        onHide={() => dispatch(uiCloseSider())}
         showCloseIcon={false}
         style={{ backgroundColor: '#3b3e47' }}
       >
         <MenuProfile />
-        <MenuSlideContent model={menu} onMenuItemClick={onMenuItemClick} />
+        <MenuSlideContent model={menu} />
       </Sidebar>
       <div className="layout-main">
         <div className="p-grid">

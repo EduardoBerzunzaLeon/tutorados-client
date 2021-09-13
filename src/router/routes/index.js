@@ -26,6 +26,11 @@ const routes = [
     exact: false,
     routes: [
       {
+        path: '/',
+        component: LoginScreen,
+        exact: true,
+      },
+      {
         path: '/login',
         component: LoginScreen,
         exact: true,

@@ -1,7 +1,15 @@
 import React from 'react';
 import { InputText } from 'primereact/inputtext';
+import { useDispatch } from 'react-redux';
+import { uiOpenSider } from '../../redux/actions/ui';
 
-export const MenuTop = ({ onToggleMenu }) => {
+export const MenuTop = () => {
+  const dispatch = useDispatch();
+
+  const onToggleMenu = (e) => {
+    dispatch(uiOpenSider());
+  };
+
   return (
     <div className="layout-topbar clearfix">
       <button

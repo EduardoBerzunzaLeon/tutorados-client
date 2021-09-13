@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
+import { useDispatch } from 'react-redux';
+import { uiCloseSider } from '../../redux/actions/ui';
 
 const Submenu = (props) => {
   const [activeIndex, setActiveIndex] = useState(null);
+
+  const dispatch = useDispatch();
 
   const onMenuItemClick = (event, item, index) => {
     //avoid processing disabled items
@@ -21,12 +25,16 @@ const Submenu = (props) => {
     if (index === activeIndex) setActiveIndex(null);
     else setActiveIndex(index);
 
-    if (props.onMenuItemClick) {
-      props.onMenuItemClick({
-        originalEvent: event,
-        item: item,
-      });
+    if (!item.items) {
+      dispatch(uiCloseSider());
     }
+
+    // if (props.onMenuItemClick) {
+    //   props.onMenuItemClick({
+    //     originalEvent: event,
+    //     item: item,
+    //   });
+    // }
   };
 
   const renderLinkContent = (item) => {
@@ -93,10 +101,7 @@ const Submenu = (props) => {
             in={active}
             unmountOnExit
           >
-            <Submenu
-              items={item.items}
-              onMenuItemClick={props.onMenuItemClick}
-            />
+            <Submenu items={item.items} />
           </CSSTransition>
         </li>
       );
@@ -108,12 +113,7 @@ const Submenu = (props) => {
 export const MenuSlideContent = (props) => {
   return (
     <div className="layout-menu-container layout-sidebar-dark">
-      <Submenu
-        items={props.model}
-        className="layout-menu"
-        onMenuItemClick={props.onMenuItemClick}
-        root={true}
-      />
+      <Submenu items={props.model} className="layout-menu" root={true} />
     </div>
   );
 };
