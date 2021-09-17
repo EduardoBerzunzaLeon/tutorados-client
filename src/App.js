@@ -14,7 +14,6 @@ import 'primeflex/primeflex.css';
 function App() {
   // active ripple effect
   PrimeReact.ripple = true;
-  console.log(process.env);
   return (
     <Provider store={store}>
       <div className="App">

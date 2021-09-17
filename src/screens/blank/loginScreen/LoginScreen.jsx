@@ -9,8 +9,25 @@ import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 
 import { SlipButton } from '../../../components/slipButton/SlipButton';
+import { useForm } from '../../../hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { startLogin } from '../../../redux/actions/auth';
 
 export const LoginScreen = () => {
+  const dispatch = useDispatch();
+
+  const [formLoginValues, handleInputChange] = useForm({
+    email: 'eduardoberzunzal@gmail.com',
+    password: '12345678',
+  });
+
+  const { email, password } = formLoginValues;
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(startLogin(email, password));
+  };
+
   const header = (
     <img
       alt="login header"
@@ -29,40 +46,52 @@ export const LoginScreen = () => {
       style={{ width: '28rem' }}
       header={header}
     >
-      <div className="p-fluid">
-        <div className="p-field">
-          <label htmlFor="user">Correo</label>
-          <div className="p-inputgroup">
-            <span className="p-inputgroup-addon">
-              <i className="pi pi-user"></i>
-            </span>
-            <InputText placeholder="edu@example.com" />
+      <form onSubmit={handleLogin}>
+        <div className="p-fluid">
+          <div className="p-field">
+            <label htmlFor="user">Correo</label>
+            <div className="p-inputgroup">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-user"></i>
+              </span>
+              <InputText
+                placeholder="edu@example.com"
+                name="email"
+                value={email}
+                onChange={handleInputChange}
+              />
+            </div>
           </div>
-        </div>
-        <div className="p-field">
-          <div className="p-d-flex p-jc-between">
-            <label htmlFor="password">Contraseña</label>
-            <Link to="forgot-password" style={{ textDecoration: 'none' }}>
-              ¿Olvidaste la contraseña?
-            </Link>
+          <div className="p-field">
+            <div className="p-d-flex p-jc-between">
+              <label htmlFor="password">Contraseña</label>
+              <Link to="forgot-password" style={{ textDecoration: 'none' }}>
+                ¿Olvidaste la contraseña?
+              </Link>
+            </div>
+            <div className="p-inputgroup">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-shield"></i>
+              </span>
+              <Password
+                toggleMask
+                feedback={false}
+                placeholder="******"
+                name="password"
+                value={password}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="p-d-flex p-jc-end">
+              <Link style={{ textDecoration: 'none' }} to="/register">
+                No tengo cuenta
+              </Link>
+            </div>
           </div>
-          <div className="p-inputgroup">
-            <span className="p-inputgroup-addon">
-              <i className="pi pi-shield"></i>
-            </span>
-            <Password toggleMask feedback={false} placeholder="******" />
-          </div>
-          <div className="p-d-flex p-jc-end">
-            <Link style={{ textDecoration: 'none' }} to="/register">
-              No tengo cuenta
-            </Link>
-          </div>
-        </div>
-        <Link to="/admin">
-          <Button label="Ingresar" />
-        </Link>
-      </div>
 
+          <Button type="submit" label="Ingresar" />
+        </div>
+      </form>
       <Divider align="center" type="dashed">
         <span>Ingresar por red social</span>
       </Divider>
