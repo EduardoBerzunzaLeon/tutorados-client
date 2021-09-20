@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { startChecking } from '../redux/auth/auth.actions';
 
-import { startChecking } from '../redux/actions/auth';
 import { LoadRoutes } from './LoadRoutes';
 import { routes } from './routes';
 

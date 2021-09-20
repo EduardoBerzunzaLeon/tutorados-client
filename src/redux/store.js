@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { rootReducer } from '../reducers/rootReducer';
+import { rootReducer } from './root-reducer';
 
 // Implement this if you want to trace your dispatch
 // &&

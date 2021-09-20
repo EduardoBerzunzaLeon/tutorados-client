@@ -11,7 +11,10 @@ import { InputText } from 'primereact/inputtext';
 import { SlipButton } from '../../../components/slipButton/SlipButton';
 import { useForm } from '../../../hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { startLogin } from '../../../redux/actions/auth';
+import { startLogin } from '../../../redux/auth/auth.actions';
+
+
+
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();

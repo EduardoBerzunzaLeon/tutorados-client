@@ -1,4 +1,6 @@
-import { types } from '../types/types';
+import uiActionTypes from './ui.types';
+
+
 
 const initialState = {
   siderOpen: false,
@@ -6,13 +8,13 @@ const initialState = {
 
 export const uiReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.uiOpenSider:
+    case uiActionTypes.OPEN_SIDER:
       return {
         ...state,
         siderOpen: true,
       };
 
-    case types.uiCloseSider:
+    case uiActionTypes.CLOSE_SIDER:
       return {
         ...state,
         siderOpen: false,

@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
-import { uiCloseSider } from '../../redux/actions/ui';
+import { uiCloseSider } from '../../redux/ui/ui.actions';
+
 
 const Submenu = (props) => {
   const [activeIndex, setActiveIndex] = useState(null);

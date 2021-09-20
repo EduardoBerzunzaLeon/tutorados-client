@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Sidebar } from 'primereact/sidebar';
 
-import { uiCloseSider } from '../../../redux/actions/ui';
+import { uiCloseSider } from '../../../redux/ui/ui.actions';
+
 import { MenuProfile } from '../../../components/menuProfile/MenuProfile';
 import { MenuSlideContent } from '../../../components/menuSlideContent/MenuSlideContent';
 import { MenuTop } from '../../../components/menuTop/MenuTop';

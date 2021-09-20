@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputText } from 'primereact/inputtext';
 import { useDispatch } from 'react-redux';
-import { uiOpenSider } from '../../redux/actions/ui';
+import { uiOpenSider } from '../../redux/ui/ui.actions';
 
 export const MenuTop = () => {
   const dispatch = useDispatch();
