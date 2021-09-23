@@ -1,6 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux';
+
+import { persistStore } from 'redux-persist';
+
 import thunk from 'redux-thunk';
-import { rootReducer } from './root-reducer';
+import rootReducer from './root-reducer';
 
 // Implement this if you want to trace your dispatch
 // &&
@@ -18,3 +21,5 @@ export const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
+
+export const persistor = persistStore(store);

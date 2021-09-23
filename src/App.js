@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { Provider } from 'react-redux';
-import PrimeReact from 'primereact/api';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 
-import { store } from './redux/store';
+import PrimeReact from 'primereact/api';
 
 import { Routes } from './router/Router';
 
@@ -17,9 +18,11 @@ function App() {
   PrimeReact.ripple = true;
   return (
     <Provider store={store}>
-      <div className="App">
-        <Routes />
-      </div>
+      <PersistGate persistor={persistor}>
+        <div className="App">
+          <Routes />
+        </div>
+      </PersistGate>
     </Provider>
   );
 }

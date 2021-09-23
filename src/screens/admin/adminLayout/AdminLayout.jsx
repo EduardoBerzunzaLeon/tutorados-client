@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Sidebar } from 'primereact/sidebar';
 
 import { uiCloseSider } from '../../../redux/ui/ui.actions';
+import { selectSiderStatus } from '../../../redux/ui/ui.selectors';
 
 import { MenuProfile } from '../../../components/menuProfile/MenuProfile';
 import { MenuSlideContent } from '../../../components/menuSlideContent/MenuSlideContent';
@@ -16,7 +17,8 @@ import '../../../layout/layout.scss';
 import './adminLayout.scss';
 
 export const AdminLayout = ({ routes }) => {
-  const { siderOpen } = useSelector((state) => state.ui);
+  const siderOpen = useSelector(selectSiderStatus);
+
   const dispatch = useDispatch();
 
   return (
