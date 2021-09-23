@@ -29,8 +29,7 @@ export const startChecking = () => {
     if (body.status === 'success') {
       localStorage.setItem('token', body.token);
       localStorage.setItem('token-init-date', new Date().getTime());
-      dispatch(login(body.data));
-      return dispatch({ type: 'persist/REHYDRATE' });
+      return dispatch(login(body.data));
     }
 
     // Swal.fire('Error', body.error.message, 'error');
