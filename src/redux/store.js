@@ -1,5 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+// import createSagaMiddleware from 'redux-saga';
 import { rootReducer } from './root-reducer';
 
 // Implement this if you want to trace your dispatch
@@ -8,6 +9,7 @@ import { rootReducer } from './root-reducer';
 //       trace: true,
 //       traceLimit: 25,
 //     })
+// const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers =
   (typeof window !== 'undefined' &&
