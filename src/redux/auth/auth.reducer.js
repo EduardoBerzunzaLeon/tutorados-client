@@ -1,21 +1,25 @@
 import authActionTypes from './auth.types';
 
-const initialState = {
-  checking: true,
+const INITIAL_STATE = {
+  currentUser: null,
+  error: null
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case authActionTypes.LOGIN:
+    case authActionTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
-        checking: false,
+        error: null,
       };
-    case authActionTypes.CHECKING_FINISH:
+  
+      case authActionTypes.SIGN_IN_FAILURE:
+      case authActionTypes.SIGN_OUT_FAILURE:
+      case authActionTypes.RENEW_TOKEN_FAILURE:
       return {
         ...state,
-        checking: false,
+        error: action.payload,
       };
     default:
       return state;

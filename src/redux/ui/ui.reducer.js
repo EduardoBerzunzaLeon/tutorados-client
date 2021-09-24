@@ -2,11 +2,11 @@ import uiActionTypes from './ui.types';
 
 
 
-const initialState = {
+const INITIAL_STATE = {
   siderOpen: false,
 };
 
-export const uiReducer = (state = initialState, action) => {
+export const uiReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case uiActionTypes.OPEN_SIDER:
       return {

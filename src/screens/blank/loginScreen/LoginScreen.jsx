@@ -11,7 +11,7 @@ import { InputText } from 'primereact/inputtext';
 import { SlipButton } from '../../../components/slipButton/SlipButton';
 import { useForm } from '../../../hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { startLogin } from '../../../redux/auth/auth.actions';
+import { emailSignInStart } from '../../../redux/auth/auth.actions';
 
 
 
@@ -20,7 +20,7 @@ export const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const [formLoginValues, handleInputChange] = useForm({
-    email: 'eduardoberzunzal@gmail.com',
+    email: 'eduardoberzunzaal@gmail.com',
     password: '12345678',
   });
 
@@ -28,7 +28,7 @@ export const LoginScreen = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(startLogin(email, password));
+    dispatch(emailSignInStart({email, password}));
   };
 
   const header = (
