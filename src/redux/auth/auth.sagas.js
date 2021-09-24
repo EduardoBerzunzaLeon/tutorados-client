@@ -1,7 +1,7 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import authActionTypes from './auth.types';
 
-import {  renewTokenFailure, signInFailure, signInSuccess } from './auth.actions';
+import {   signInFailure, signInSuccess } from './auth.actions';
 import { fetchWithoutToken, fetchWithToken } from '../../utils/fetch';
 import Swal from 'sweetalert2';
 
@@ -44,7 +44,7 @@ export function* renewToken() {
 
         // return yield put(renewTokenFailure(body.error.message));
     } catch (error) {
-        return yield put(renewTokenFailure(error.message));
+        return yield put(signInFailure(error.message));
     }
 }
 

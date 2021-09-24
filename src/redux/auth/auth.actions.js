@@ -19,7 +19,3 @@ export const signInFailure = error => ({
   payload: error
 });
 
-export const renewTokenFailure = (error) => ({ 
-  type: authActionTypes.RENEW_TOKEN_FAILURE,
-  payload: error
-});

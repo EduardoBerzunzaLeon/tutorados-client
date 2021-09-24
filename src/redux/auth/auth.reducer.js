@@ -16,7 +16,6 @@ export const authReducer = (state = INITIAL_STATE, action) => {
   
       case authActionTypes.SIGN_IN_FAILURE:
       case authActionTypes.SIGN_OUT_FAILURE:
-      case authActionTypes.RENEW_TOKEN_FAILURE:
       return {
         ...state,
         error: action.payload,
