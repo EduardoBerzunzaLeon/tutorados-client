@@ -1,7 +1,7 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import authActionTypes from './auth.types';
 
-import {   signInFailure, signInSuccess } from './auth.actions';
+import {   signInFailure, signInSuccess, signOutFailure, signOutSuccess } from './auth.actions';
 import { fetchWithoutToken, fetchWithToken } from '../../utils/fetch';
 import Swal from 'sweetalert2';
 
@@ -47,6 +47,15 @@ export function* renewToken() {
     }
 }
 
+export function* signOut() {
+    try {
+        localStorage.clear();
+        return yield put(signOutSuccess());
+    } catch (error) {
+        console.log(error);
+        return yield put(signOutFailure(error.message));
+    }
+}
 
 export function* onEmailSignInStart() {
     yield takeLatest(authActionTypes.EMAIL_SIGN_IN_START, signInWithEmail );
@@ -56,9 +65,14 @@ export function* onRefreshTokenStart() {
     yield takeLatest(authActionTypes.RENEW_TOKEN_START, renewToken);
 }
 
+export function* onSignOutStart() {
+    yield takeLatest(authActionTypes.SIGN_OUT_START, signOut);
+}
+
 export function* authSagas() {
     yield all([
         call(onEmailSignInStart),
         call(onRefreshTokenStart),
+        call(onSignOutStart)
     ])
 }

@@ -15,9 +15,15 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         checking: false,
         error: null,
       };
-  
-      case authActionTypes.SIGN_IN_FAILURE:
-      case authActionTypes.SIGN_OUT_FAILURE:
+
+    case authActionTypes.SIGN_OUT_SUCCESS:
+      return {
+        currentUser: null,
+        error: null
+      }
+      
+    case authActionTypes.SIGN_IN_FAILURE:
+    case authActionTypes.SIGN_OUT_FAILURE:
       return {
         ...state,
         checking: false,

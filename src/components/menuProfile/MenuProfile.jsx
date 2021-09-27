@@ -1,26 +1,37 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+
 
 import classNames from 'classnames';
 
 import { CSSTransition } from 'react-transition-group';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { signOutStart } from '../../redux/auth/auth.actions';
+import { selectCurrentUser } from '../../redux/auth/auth.selectors';
 
 export const MenuProfile = () => {
   const [expanded, setExpanded] = useState(false);
+  const { name, image } = useSelector(selectCurrentUser);
+
+  const dispatch = useDispatch();
 
   const onClick = (event) => {
     setExpanded((prevState) => !prevState);
     event.preventDefault();
   };
 
+  const handleLogout = () => {
+    dispatch(signOutStart());
+  }
+
   return (
     <div className="layout-sidebar-dark">
       <div className="layout-profile">
         <div>
-          <img src="assets/layout/images/profile.png" alt="Profile" />
+          <img src={`assets/layout/images/${!!image || 'profile.png'}`} alt="Profile" />
         </div>
         <button className="p-link layout-profile-link" onClick={onClick}>
-          <span className="username">Claire Williams</span>
+          <span className="username">{name.first}</span>
           <i className="pi pi-fw pi-cog" />
         </button>
         <CSSTransition
@@ -44,12 +55,10 @@ export const MenuProfile = () => {
               </button>
             </li>
             <li>
-              <Link to="/login">
-                <button type="button" className="p-link">
+                <button onClick={handleLogout} type="button" className="p-link">
                   <i className="pi pi-fw pi-power-off" />
                   <span>Logout</span>
                 </button>
-              </Link>
             </li>
           </ul>
         </CSSTransition>
