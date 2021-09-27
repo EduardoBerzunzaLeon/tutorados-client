@@ -31,7 +31,7 @@ export function* signInWithEmail({payload: { email, password}}) {
 }
 
 export function* renewToken() {
-    
+
     try {
         const resp = yield fetchWithToken('users/renew', 'POST');
         const body = yield resp.json();
@@ -41,8 +41,7 @@ export function* renewToken() {
             localStorage.setItem('token-init-date', new Date().getTime());
             return yield put(signInSuccess(body.data));
         }
-
-        // return yield put(renewTokenFailure(body.error.message));
+        
     } catch (error) {
         return yield put(signInFailure(error.message));
     }

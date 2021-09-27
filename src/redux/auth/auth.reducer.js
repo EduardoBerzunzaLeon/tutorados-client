@@ -1,6 +1,7 @@
 import authActionTypes from './auth.types';
 
 const INITIAL_STATE = {
+  checking: true,
   currentUser: null,
   error: null
 };
@@ -11,6 +12,7 @@ export const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: action.payload,
+        checking: false,
         error: null,
       };
   
@@ -18,6 +20,7 @@ export const authReducer = (state = INITIAL_STATE, action) => {
       case authActionTypes.SIGN_OUT_FAILURE:
       return {
         ...state,
+        checking: false,
         error: action.payload,
       };
     default:

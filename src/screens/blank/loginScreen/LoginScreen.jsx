@@ -20,7 +20,7 @@ export const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const [formLoginValues, handleInputChange] = useForm({
-    email: 'eduardoberzunzaal@gmail.com',
+    email: 'eduardoberzunzal@gmail.com',
     password: '12345678',
   });
 
@@ -60,6 +60,8 @@ export const LoginScreen = () => {
               <InputText
                 placeholder="edu@example.com"
                 name="email"
+                required
+                type="email"
                 value={email}
                 onChange={handleInputChange}
               />
@@ -81,6 +83,7 @@ export const LoginScreen = () => {
                 feedback={false}
                 placeholder="******"
                 name="password"
+                required
                 value={password}
                 onChange={handleInputChange}
               />

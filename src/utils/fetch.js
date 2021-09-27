@@ -18,6 +18,9 @@ const fetchWithoutToken = (endpoint, data, method = 'GET') => {
 const fetchWithToken = (endpoint, method = 'GET', data) => {
   const url = `${baseUrl}/${endpoint}`;
   const token = localStorage.getItem('token') || '';
+
+  if(token === '')  throw new Error('No se encontró el token');
+  
   if (method === 'GET') {
     return fetch(url, {
       method,

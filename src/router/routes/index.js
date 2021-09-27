@@ -12,11 +12,13 @@ const routes = [
     path: '/admin',
     component: AdminLayout,
     exact: false,
+    private: true,
     routes: [
       {
         path: '/admin',
         component: HomeScreen,
         exact: true,
+        private: true,
       },
     ],
   },
@@ -24,31 +26,37 @@ const routes = [
     path: '/',
     component: BlankLayout,
     exact: false,
+    private: false,
     routes: [
       {
         path: '/',
         component: LoginScreen,
         exact: true,
+        private: false,
       },
       {
         path: '/login',
         component: LoginScreen,
         exact: true,
+        private: false,
       },
       {
         path: '/register',
         component: RegisterScreen,
         exact: true,
+        private: false,
       },
       {
         path: '/forgot-password',
         component: ForgotPasswordScren,
         exact: true,
+        private: false,
       },
       {
         path: '/reset-password',
         component: ResetPasswordScreen,
         exact: true,
+        private: false,
       },
     ],
   },
