@@ -3,7 +3,7 @@ import React from 'react';
 import { Password } from 'primereact/password';
 import { Divider } from 'primereact/divider';
 
-export const InputPassword = () => {
+export const InputPassword = (props) => {
   const footer = (
     <React.Fragment>
       <Divider />
@@ -26,6 +26,7 @@ export const InputPassword = () => {
       weakLabel="Débil"
       mediumLabel="Moderada"
       strongLabel="Difícil"
+      {...props}
     />
   );
 };
