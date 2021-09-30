@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { Password } from 'primereact/password';
 import { Divider } from 'primereact/divider';
 
-export const InputPassword = (props) => {
+export const InputPassword = forwardRef((props, ref) => {
   const footer = (
     <React.Fragment>
       <Divider />
@@ -18,6 +18,7 @@ export const InputPassword = (props) => {
   );
   return (
     <Password
+      ref={ref}
       toggleMask
       placeholder="******"
       keyfilter={/[^\s]/}
@@ -29,4 +30,4 @@ export const InputPassword = (props) => {
       {...props}
     />
   );
-};
+});

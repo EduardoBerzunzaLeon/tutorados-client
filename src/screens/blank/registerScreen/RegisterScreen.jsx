@@ -1,46 +1,57 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+
+import { useForm, Controller } from 'react-hook-form';
 
 import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
 import { Link } from 'react-router-dom';
 import { InputPassword } from '../../../components/inputPassword/InputPassword';
-import { useForm } from '../../../hooks/useForm';
 import { LabelErrorInput } from '../../../components/labelErrorInput/LabelErrorInput';
+import classNames from 'classnames';
 
 export const RegisterScreen = () => {
-  const [errors, setErrors] = useState({
-    emailError: null,
-    passwordError: null,
-    genderError: null,
-    firstError: null,
-    lastError: null,
-  });
-
-  const [formNameValues, handleInputNameChange] = useForm({
-    first: 'Fatima',
-    last: 'Pacheco',
-  });
-
-  const [formRegisterValues, handleInputChange] = useForm({
+  const defaultValues = {
     email: 'fatima.bernes@gmail.com',
     password: '12345678',
     confirmPassword: '12345678',
     gender: 'M',
-  });
+    first: 'Fatima',
+    last: 'Pacheco',
+  };
 
-  const { email, password, confirmPassword, gender } = formRegisterValues;
-  const { first, last } = formNameValues;
+  // const [data, setData] = useState(null);
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    setErrors({
-      ...errors,
-      emailError: 'valioVerga',
-    });
-    console.log(formRegisterValues);
-    console.log(formNameValues);
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    watch,
+  } = useForm({ defaultValues });
+
+  const password = useRef();
+  password.current = watch('password', defaultValues.confirmPassword);
+
+  const getFormErrorMessage = (name) => {
+    return (
+      errors[name] && (
+        <LabelErrorInput id={name} message={errors[name].message} />
+      )
+    );
+  };
+
+  const onSubmit = (dataSubmit) => {
+    const { first, last, ...dataWithoutName } = dataSubmit;
+    const sendData = {
+      ...dataWithoutName,
+      name: {
+        first,
+        last,
+      },
+    };
+    // TODO: Do a dispatch register without email send
+    console.log(sendData);
   };
 
   return (
@@ -49,7 +60,7 @@ export const RegisterScreen = () => {
       className="p-shadow-5"
       style={{ width: '35rem' }}
     >
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
         <div className="p-fluid p-formgrid p-grid">
           <div className="p-field p-col-12">
             <label htmlFor="user">Correo</label>
@@ -57,19 +68,28 @@ export const RegisterScreen = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-envelope"></i>
               </span>
-              <InputText
-                placeholder="edu@example.com"
-                keyfilter="email"
+              <Controller
                 name="email"
-                value={email}
-                onChange={handleInputChange}
-                className={!!errors.emailError && 'p-invalid'}
-                required
+                control={control}
+                rules={{
+                  required: 'Correo es obligatorio.',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message:
+                      'Correo Electrónico inválido. P. ej. ejemplo@email.com',
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <InputText
+                    id={field.name}
+                    {...field}
+                    autoFocus
+                    className={classNames({ 'p-invalid': fieldState.invalid })}
+                  />
+                )}
               />
             </div>
-            {!!errors.emailError && (
-              <LabelErrorInput id="email-help" message={errors.emailError} />
-            )}
+            {getFormErrorMessage('email')}
           </div>
           <div className="p-field p-col-12 p-sm-6">
             <label htmlFor="user">Nombre(s)</label>
@@ -77,14 +97,26 @@ export const RegisterScreen = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-user"></i>
               </span>
-              <InputText
-                placeholder="eduardo"
+              <Controller
                 name="first"
-                value={first}
-                onChange={handleInputNameChange}
-                required
+                control={control}
+                rules={{
+                  required: 'Nombre es obligatorio.',
+                  pattern: {
+                    value: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+                    message: 'Nombre inválido. P. ej. Eduardo Jesús',
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <InputText
+                    id={field.name}
+                    {...field}
+                    className={classNames({ 'p-invalid': fieldState.invalid })}
+                  />
+                )}
               />
             </div>
+            {getFormErrorMessage('first')}
           </div>
           <div className="p-field p-col-12 p-sm-6">
             <label htmlFor="user">Apellido(s)</label>
@@ -92,13 +124,26 @@ export const RegisterScreen = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-user-edit"></i>
               </span>
-              <InputText
-                placeholder="berzunza"
+              <Controller
                 name="last"
-                value={last}
-                onChange={handleInputNameChange}
+                control={control}
+                rules={{
+                  required: 'Apellido es obligatorio.',
+                  pattern: {
+                    value: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+                    message: 'Nombre inválido. P. ej. Berzunza León',
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <InputText
+                    id={field.name}
+                    {...field}
+                    className={classNames({ 'p-invalid': fieldState.invalid })}
+                  />
+                )}
               />
             </div>
+            {getFormErrorMessage('last')}
           </div>
           <div className="p-field p-col-12 p-sm-6">
             <div className="p-d-flex">
@@ -108,13 +153,21 @@ export const RegisterScreen = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-shield"></i>
               </span>
-              <InputPassword
+              <Controller
                 name="password"
-                value={password}
-                onChange={handleInputChange}
-                required
+                control={control}
+                rules={{ required: 'Contraseña es requerida.' }}
+                render={({ field, fieldState }) => (
+                  <InputPassword
+                    id={field.name}
+                    feedback={false}
+                    {...field}
+                    className={classNames({ 'p-invalid': fieldState.invalid })}
+                  />
+                )}
               />
             </div>
+            {getFormErrorMessage('password')}
           </div>
           <div className="p-field p-col-12 p-sm-6">
             <div className="p-d-flex">
@@ -124,40 +177,61 @@ export const RegisterScreen = () => {
               <span className="p-inputgroup-addon">
                 <i className="pi pi-lock"></i>
               </span>
-              <InputPassword
+              <Controller
                 name="confirmPassword"
-                value={confirmPassword}
-                onChange={handleInputChange}
-                required
+                control={control}
+                rules={{
+                  required: 'Confirmar contraseña es obligatoria.',
+                  validate: (value) =>
+                    value === password.current ||
+                    'Las contraseñas no coinciden',
+                }}
+                render={({ field, fieldState }) => (
+                  <InputPassword
+                    id={field.name}
+                    feedback={false}
+                    {...field}
+                    className={classNames({ 'p-invalid': fieldState.invalid })}
+                  />
+                )}
               />
             </div>
+            {getFormErrorMessage('confirmPassword')}
           </div>
           <div className="p-field ">
             <div className="p-d-flex">
-              <label htmlFor="confirmPassword">Género</label>
+              <label htmlFor="gender">Género</label>
             </div>
             <div className="p-d-inline-flex p-mt-2">
               <div className="p-formgroup-inline">
-                <div className="p-field-checkbox">
-                  <RadioButton
-                    inputId="gender1"
-                    name="gender"
-                    value="M"
-                    onChange={handleInputChange}
-                    checked={gender === 'M'}
-                  />
-                  <label htmlFor="gender1">Masculino</label>
-                </div>
-                <div className="p-field-checkbox">
-                  <RadioButton
-                    inputId="gender2"
-                    name="gender"
-                    value="F"
-                    onChange={handleInputChange}
-                    checked={gender === 'F'}
-                  />
-                  <label htmlFor="gender2">Femenino</label>
-                </div>
+                <Controller
+                  name="gender"
+                  control={control}
+                  rules={{ required: 'Password is required.' }}
+                  render={({ field, fieldState }) => (
+                    <>
+                      <div className="p-field-checkbox">
+                        <RadioButton
+                          inputId="gender1"
+                          value="F"
+                          checked={field.value === 'M'}
+                          {...field}
+                        />
+                        <label htmlFor="gender1">Masculino</label>
+                      </div>
+                      <div className="p-field-checkbox">
+                        <RadioButton
+                          inputId="gender2"
+                          value="M"
+                          checked={field.value === 'F'}
+                          {...field}
+                        />
+                        <label htmlFor="gender2">Femenino</label>
+                      </div>
+                      {getFormErrorMessage('gender')}
+                    </>
+                  )}
+                />
               </div>
             </div>
           </div>

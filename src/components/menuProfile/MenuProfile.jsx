@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 import classNames from 'classnames';
 
 import { CSSTransition } from 'react-transition-group';
@@ -8,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { signOutStart } from '../../redux/auth/auth.actions';
 import { selectCurrentUser } from '../../redux/auth/auth.selectors';
+import { uiCloseSider } from '../../redux/ui/ui.actions';
 
 export const MenuProfile = () => {
   const [expanded, setExpanded] = useState(false);
@@ -21,14 +21,18 @@ export const MenuProfile = () => {
   };
 
   const handleLogout = () => {
+    dispatch(uiCloseSider());
     dispatch(signOutStart());
-  }
+  };
 
   return (
     <div className="layout-sidebar-dark">
       <div className="layout-profile">
         <div>
-          <img src={`assets/layout/images/${!!image || 'profile.png'}`} alt="Profile" />
+          <img
+            src={`assets/layout/images/${!!image || 'profile.png'}`}
+            alt="Profile"
+          />
         </div>
         <button className="p-link layout-profile-link" onClick={onClick}>
           <span className="username">{name.first}</span>
@@ -55,10 +59,10 @@ export const MenuProfile = () => {
               </button>
             </li>
             <li>
-                <button onClick={handleLogout} type="button" className="p-link">
-                  <i className="pi pi-fw pi-power-off" />
-                  <span>Logout</span>
-                </button>
+              <button onClick={handleLogout} type="button" className="p-link">
+                <i className="pi pi-fw pi-power-off" />
+                <span>Logout</span>
+              </button>
             </li>
           </ul>
         </CSSTransition>
