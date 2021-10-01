@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 
@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import { InputPassword } from '../../../components/inputPassword/InputPassword';
 import { LabelErrorInput } from '../../../components/labelErrorInput/LabelErrorInput';
 import classNames from 'classnames';
+import { useDispatch } from 'react-redux';
+import { signUpStart } from '../../../redux/auth/auth.actions';
 
 export const RegisterScreen = () => {
   const defaultValues = {
@@ -21,7 +23,7 @@ export const RegisterScreen = () => {
     last: 'Pacheco',
   };
 
-  // const [data, setData] = useState(null);
+  const dispatch = useDispatch();
 
   const {
     control,
@@ -51,7 +53,7 @@ export const RegisterScreen = () => {
       },
     };
     // TODO: Do a dispatch register without email send
-    console.log(sendData);
+    dispatch(signUpStart(sendData));
   };
 
   return (

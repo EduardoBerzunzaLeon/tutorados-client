@@ -6,6 +6,8 @@ import {
   signInSuccess,
   signOutFailure,
   signOutSuccess,
+  signUpFailure,
+  signUpSuccess,
 } from './auth.actions';
 import { fetchWithoutToken, fetchWithToken } from '../../utils/fetch';
 import Swal from 'sweetalert2';
@@ -25,6 +27,8 @@ export function* signInWithEmail({ payload: { email, password } }) {
       localStorage.setItem('token-init-date', new Date().getTime());
       return yield put(signInSuccess(body.data));
     }
+
+    throw new Error(body.error.message);
   } catch (error) {
     Swal.fire('Error', error.message, 'error');
     return yield put(signInFailure(error.message));
@@ -41,6 +45,8 @@ export function* renewToken() {
       localStorage.setItem('token-init-date', new Date().getTime());
       return yield put(signInSuccess(body.data));
     }
+
+    throw new Error(body.error.message);
   } catch (error) {
     return yield put(signInFailure(error.message));
   }
@@ -52,6 +58,28 @@ export function* signOut() {
     return yield put(signOutSuccess());
   } catch (error) {
     return yield put(signOutFailure(error.message));
+  }
+}
+
+export function* signUp({
+  payload: { name, email, password, confirmPassword, gender },
+}) {
+  try {
+    const resp = yield fetchWithoutToken(
+      'users/signup',
+      { name, email, password, confirmPassword, gender },
+      'POST'
+    );
+
+    const body = yield resp.json();
+    console.log(body);
+    if (body.status === 'success') {
+      localStorage.setItem('token', body.token);
+      localStorage.setItem('token-init-date', new Date().getTime());
+      return yield put(signUpSuccess(body.data));
+    }
+  } catch (error) {
+    return yield put(signUpFailure(error.message));
   }
 }
 
@@ -67,10 +95,15 @@ export function* onSignOutStart() {
   yield takeLatest(authActionTypes.SIGN_OUT_START, signOut);
 }
 
+export function* onSignUpStart() {
+  yield takeLatest(authActionTypes.SIGN_UP_START, signUp);
+}
+
 export function* authSagas() {
   yield all([
     call(onEmailSignInStart),
     call(onRefreshTokenStart),
     call(onSignOutStart),
+    call(onSignUpStart),
   ]);
 }
