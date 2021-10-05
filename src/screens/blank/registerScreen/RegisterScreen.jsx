@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 
@@ -8,51 +8,63 @@ import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
 import { Link } from 'react-router-dom';
 import { InputPassword } from '../../../components/inputPassword/InputPassword';
-import { LabelErrorInput } from '../../../components/labelErrorInput/LabelErrorInput';
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUpStart } from '../../../redux/auth/auth.actions';
+import { selectError } from '../../../redux/auth/auth.selectors';
+import {
+  createErrorsArray,
+  getFormErrorMessage,
+} from '../../../utils/handlerFormErrors';
+
+const errorsTranslate = {
+  email: 'email',
+  password: 'contraseña',
+  gender: 'genero',
+  first: 'nombre',
+  last: 'apellido',
+};
+
+const defaultValues = {
+  email: 'fatima.bernes@gmail.com',
+  password: '12345678',
+  confirmPassword: '12345678',
+  gender: 'M',
+  first: 'Fatima',
+  last: 'Pacheco',
+};
 
 export const RegisterScreen = () => {
-  const defaultValues = {
-    email: 'fatima.bernes@gmail.com',
-    password: '12345678',
-    confirmPassword: '12345678',
-    gender: 'M',
-    first: 'Fatima',
-    last: 'Pacheco',
-  };
-
   const dispatch = useDispatch();
+  const error = useSelector(selectError);
 
   const {
     control,
+    setError,
     formState: { errors },
     handleSubmit,
     watch,
   } = useForm({ defaultValues });
 
+  useEffect(() => {
+    createErrorsArray(error, errorsTranslate, setError);
+  }, [error, setError]);
+
   const password = useRef();
   password.current = watch('password', defaultValues.confirmPassword);
 
-  const getFormErrorMessage = (name) => {
-    return (
-      errors[name] && (
-        <LabelErrorInput id={name} message={errors[name].message} />
-      )
-    );
-  };
-
   const onSubmit = (dataSubmit) => {
-    const { first, last, ...dataWithoutName } = dataSubmit;
+    const { first, last, email, password, ...dataWithoutName } = dataSubmit;
     const sendData = {
       ...dataWithoutName,
+      email: '',
+      password: '',
       name: {
         first,
         last,
       },
     };
-    // TODO: Do a dispatch register without email send
+    // TODO: Do a dispatch register with email send
     dispatch(signUpStart(sendData));
   };
 
@@ -91,7 +103,7 @@ export const RegisterScreen = () => {
                 )}
               />
             </div>
-            {getFormErrorMessage('email')}
+            {getFormErrorMessage('email', errors)}
           </div>
           <div className="p-field p-col-12 p-sm-6">
             <label htmlFor="user">Nombre(s)</label>
@@ -118,7 +130,7 @@ export const RegisterScreen = () => {
                 )}
               />
             </div>
-            {getFormErrorMessage('first')}
+            {getFormErrorMessage('first', errors)}
           </div>
           <div className="p-field p-col-12 p-sm-6">
             <label htmlFor="user">Apellido(s)</label>
@@ -145,7 +157,7 @@ export const RegisterScreen = () => {
                 )}
               />
             </div>
-            {getFormErrorMessage('last')}
+            {getFormErrorMessage('last', errors)}
           </div>
           <div className="p-field p-col-12 p-sm-6">
             <div className="p-d-flex">
@@ -169,7 +181,7 @@ export const RegisterScreen = () => {
                 )}
               />
             </div>
-            {getFormErrorMessage('password')}
+            {getFormErrorMessage('password', errors)}
           </div>
           <div className="p-field p-col-12 p-sm-6">
             <div className="p-d-flex">
@@ -198,7 +210,7 @@ export const RegisterScreen = () => {
                 )}
               />
             </div>
-            {getFormErrorMessage('confirmPassword')}
+            {getFormErrorMessage('confirmPassword', errors)}
           </div>
           <div className="p-field ">
             <div className="p-d-flex">
@@ -230,7 +242,7 @@ export const RegisterScreen = () => {
                         />
                         <label htmlFor="gender2">Femenino</label>
                       </div>
-                      {getFormErrorMessage('gender')}
+                      {getFormErrorMessage('gender', errors)}
                     </>
                   )}
                 />

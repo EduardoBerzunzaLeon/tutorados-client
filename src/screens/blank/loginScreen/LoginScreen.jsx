@@ -14,6 +14,7 @@ import { SlipButton } from '../../../components/slipButton/SlipButton';
 import classNames from 'classnames';
 import { LabelErrorInput } from '../../../components/labelErrorInput/LabelErrorInput';
 import { InputPassword } from '../../../components/inputPassword/InputPassword';
+import { getFormErrorMessage } from '../../../utils/handlerFormErrors';
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();
@@ -31,14 +32,6 @@ export const LoginScreen = () => {
 
   const onSubmit = ({ email, password }) =>
     dispatch(emailSignInStart({ email, password }));
-
-  const getFormErrorMessage = (name) => {
-    return (
-      errors[name] && (
-        <LabelErrorInput id={name} message={errors[name].message} />
-      )
-    );
-  };
 
   const header = (
     <img
@@ -92,7 +85,7 @@ export const LoginScreen = () => {
               )}
             />
           </div>
-          {getFormErrorMessage('email')}
+          {getFormErrorMessage('email', errors)}
         </div>
         <div className="p-field">
           <div className="p-d-flex p-jc-between">
@@ -124,7 +117,7 @@ export const LoginScreen = () => {
               )}
             />
           </div>
-          {getFormErrorMessage('password')}
+          {getFormErrorMessage('password', errors)}
           <div className="p-d-flex p-jc-end">
             <Link style={{ textDecoration: 'none' }} to="/register">
               No tengo cuenta

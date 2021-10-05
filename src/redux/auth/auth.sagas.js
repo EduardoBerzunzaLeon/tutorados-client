@@ -72,12 +72,14 @@ export function* signUp({
     );
 
     const body = yield resp.json();
-    console.log(body);
+
     if (body.status === 'success') {
       localStorage.setItem('token', body.token);
       localStorage.setItem('token-init-date', new Date().getTime());
       return yield put(signUpSuccess(body.data));
     }
+
+    throw new Error(body.error.message);
   } catch (error) {
     return yield put(signUpFailure(error.message));
   }
