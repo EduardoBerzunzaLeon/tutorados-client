@@ -6,6 +6,7 @@ import { LoginScreen } from '../../screens/blank/loginScreen/LoginScreen';
 import { RegisterScreen } from '../../screens/blank/registerScreen/RegisterScreen';
 import { ForgotPasswordScren } from '../../screens/blank/forgotPasswordScreen/ForgotPasswordScreen';
 import { ResetPasswordScreen } from '../../screens/blank/resetPasswordScreen/ResetPasswordScreen';
+import { ActiveScreen } from '../../screens/blank/activeScreen/ActiveScreen';
 
 const routes = [
   {
@@ -47,6 +48,12 @@ const routes = [
         private: false,
       },
       {
+        path: '/active/:id',
+        component: ActiveScreen,
+        exact: true,
+        private: false,
+      },
+      {
         path: '/forgot-password',
         component: ForgotPasswordScren,
         exact: true,
@@ -55,6 +62,12 @@ const routes = [
       {
         path: '/reset-password',
         component: ResetPasswordScreen,
+        exact: true,
+        private: false,
+      },
+      {
+        path: '*',
+        component: LoginScreen,
         exact: true,
         private: false,
       },

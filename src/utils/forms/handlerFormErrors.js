@@ -1,4 +1,4 @@
-import { LabelErrorInput } from '../components/labelErrorInput/LabelErrorInput';
+import { LabelErrorInput } from '../../components/labelErrorInput/LabelErrorInput';
 
 // Change a specific error, work it with react-hook-form
 export const createErrorsArray = (errors, errorsTranslate, setError) => {

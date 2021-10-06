@@ -15,24 +15,11 @@ import { selectError } from '../../../redux/auth/auth.selectors';
 import {
   createErrorsArray,
   getFormErrorMessage,
-} from '../../../utils/handlerFormErrors';
-
-const errorsTranslate = {
-  email: 'email',
-  password: 'contraseña',
-  gender: 'genero',
-  first: 'nombre',
-  last: 'apellido',
-};
-
-const defaultValues = {
-  email: 'fatima.bernes@gmail.com',
-  password: '12345678',
-  confirmPassword: '12345678',
-  gender: 'M',
-  first: 'Fatima',
-  last: 'Pacheco',
-};
+} from '../../../utils/forms/handlerFormErrors';
+import {
+  registerScreenDefaultValues as defaultValues,
+  registerScreenErrors,
+} from '../../../utils/forms/authFormsData';
 
 export const RegisterScreen = () => {
   const dispatch = useDispatch();
@@ -47,24 +34,22 @@ export const RegisterScreen = () => {
   } = useForm({ defaultValues });
 
   useEffect(() => {
-    createErrorsArray(error, errorsTranslate, setError);
+    createErrorsArray(error, registerScreenErrors, setError);
   }, [error, setError]);
 
   const password = useRef();
   password.current = watch('password', defaultValues.confirmPassword);
 
   const onSubmit = (dataSubmit) => {
-    const { first, last, email, password, ...dataWithoutName } = dataSubmit;
+    const { first, last, ...dataWithoutName } = dataSubmit;
     const sendData = {
-      ...dataWithoutName,
-      email: '',
-      password: '',
       name: {
         first,
         last,
       },
+      url: process.env.REACT_APP_ACTIVE_URL,
+      ...dataWithoutName,
     };
-    // TODO: Do a dispatch register with email send
     dispatch(signUpStart(sendData));
   };
 
@@ -75,7 +60,7 @@ export const RegisterScreen = () => {
       style={{ width: '35rem' }}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
-        <div className="p-fluid p-formgrid p-grid">
+        <div className="p-formgrid p-grid">
           <div className="p-field p-col-12">
             <label htmlFor="user">Correo</label>
             <div className="p-inputgroup">
@@ -125,7 +110,9 @@ export const RegisterScreen = () => {
                   <InputText
                     id={field.name}
                     {...field}
-                    className={classNames({ 'p-invalid': fieldState.invalid })}
+                    className={classNames({
+                      'p-invalid': fieldState.invalid,
+                    })}
                   />
                 )}
               />

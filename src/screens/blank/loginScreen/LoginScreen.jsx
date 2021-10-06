@@ -12,17 +12,12 @@ import { useDispatch } from 'react-redux';
 import { emailSignInStart } from '../../../redux/auth/auth.actions';
 import { SlipButton } from '../../../components/slipButton/SlipButton';
 import classNames from 'classnames';
-import { LabelErrorInput } from '../../../components/labelErrorInput/LabelErrorInput';
 import { InputPassword } from '../../../components/inputPassword/InputPassword';
-import { getFormErrorMessage } from '../../../utils/handlerFormErrors';
+import { getFormErrorMessage } from '../../../utils/forms/handlerFormErrors';
+import { loginScreenDefaultValues as defaultValues } from '../../../utils/forms/authFormsData';
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();
-
-  const defaultValues = {
-    email: 'eduardoberzunzal@gmail.com',
-    password: '12345678',
-  };
 
   const {
     control,

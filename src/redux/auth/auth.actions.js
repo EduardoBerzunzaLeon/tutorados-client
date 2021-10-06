@@ -45,3 +45,17 @@ export const signUpFailure = (error) => ({
   type: authActionTypes.SIGN_UP_FAILURE,
   payload: error,
 });
+
+export const activeAccountStart = (id) => ({
+  type: authActionTypes.ACTIVE_ACCOUNT_START,
+  payload: id,
+});
+
+export const activeAccountSuccess = () => ({
+  type: authActionTypes.ACTIVE_ACCOUNT_SUCCESS,
+});
+
+export const activeAccountFailure = (error) => ({
+  type: authActionTypes.ACTIVE_ACCOUNT_FAILURE,
+  payload: error,
+});

@@ -12,3 +12,7 @@ export const selectChecking = createSelector(
 );
 
 export const selectError = createSelector([selectUser], (user) => user.error);
+export const selectActivate = createSelector(
+  [selectUser],
+  (user) => user.activate
+);

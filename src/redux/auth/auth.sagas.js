@@ -2,6 +2,8 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 import authActionTypes from './auth.types';
 
 import {
+  activeAccountFailure,
+  activeAccountSuccess,
   signInFailure,
   signInSuccess,
   signOutFailure,
@@ -62,12 +64,12 @@ export function* signOut() {
 }
 
 export function* signUp({
-  payload: { name, email, password, confirmPassword, gender },
+  payload: { name, email, password, confirmPassword, gender, url },
 }) {
   try {
     const resp = yield fetchWithoutToken(
       'users/signup',
-      { name, email, password, confirmPassword, gender },
+      { name, email, password, confirmPassword, gender, url },
       'POST'
     );
 
@@ -76,12 +78,33 @@ export function* signUp({
     if (body.status === 'success') {
       localStorage.setItem('token', body.token);
       localStorage.setItem('token-init-date', new Date().getTime());
+      Swal.fire(
+        'Éxito',
+        `¡Felicidades! se creo su usuario, le enviamos un correo de verificación a ${email}.`,
+        'success'
+      );
       return yield put(signUpSuccess(body.data));
     }
 
     throw new Error(body.error.message);
   } catch (error) {
     return yield put(signUpFailure(error.message));
+  }
+}
+
+export function* activeAccount({ payload: id }) {
+  try {
+    const resp = yield fetchWithoutToken(`users/activate/${id}`, {}, 'PATCH');
+    const body = yield resp.json();
+
+    if (body.status === 'success') {
+      return yield put(activeAccountSuccess());
+      // TODO
+    }
+
+    throw new Error(body.error.message);
+  } catch (error) {
+    return yield put(activeAccountFailure(error.message));
   }
 }
 
@@ -101,11 +124,21 @@ export function* onSignUpStart() {
   yield takeLatest(authActionTypes.SIGN_UP_START, signUp);
 }
 
+export function* onActiveAccountStart() {
+  yield takeLatest(authActionTypes.ACTIVE_ACCOUNT_START, activeAccount);
+}
+
+export function* onActiveAccountSuccess() {
+  yield takeLatest(authActionTypes.ACTIVE_ACCOUNT_SUCCESS, renewToken);
+}
+
 export function* authSagas() {
   yield all([
     call(onEmailSignInStart),
     call(onRefreshTokenStart),
     call(onSignOutStart),
     call(onSignUpStart),
+    call(onActiveAccountStart),
+    call(onActiveAccountSuccess),
   ]);
 }
