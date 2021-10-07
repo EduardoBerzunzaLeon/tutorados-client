@@ -24,14 +24,14 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
 
-    case authActionTypes.ACTIVE_ACCOUNT_SUCCESS:
+    case authActionTypes.ACTIVATE_ACCOUNT_SUCCESS:
       return {
         ...state,
         activate: true,
         error: null,
       };
 
-    case authActionTypes.ACTIVE_ACCOUNT_FAILURE:
+    case authActionTypes.ACTIVATE_ACCOUNT_FAILURE:
       return {
         ...state,
         checking: false,

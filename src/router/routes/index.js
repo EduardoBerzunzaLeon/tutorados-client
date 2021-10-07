@@ -6,7 +6,7 @@ import { LoginScreen } from '../../screens/blank/loginScreen/LoginScreen';
 import { RegisterScreen } from '../../screens/blank/registerScreen/RegisterScreen';
 import { ForgotPasswordScren } from '../../screens/blank/forgotPasswordScreen/ForgotPasswordScreen';
 import { ResetPasswordScreen } from '../../screens/blank/resetPasswordScreen/ResetPasswordScreen';
-import { ActiveScreen } from '../../screens/blank/activeScreen/ActiveScreen';
+import { ActivateScreen } from '../../screens/blank/activateScreen/ActivateScreen';
 
 const routes = [
   {
@@ -48,8 +48,8 @@ const routes = [
         private: false,
       },
       {
-        path: '/active/:id',
-        component: ActiveScreen,
+        path: '/activate/:id',
+        component: ActivateScreen,
         exact: true,
         private: false,
       },

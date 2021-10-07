@@ -2,8 +2,8 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 import authActionTypes from './auth.types';
 
 import {
-  activeAccountFailure,
-  activeAccountSuccess,
+  activateAccountFailure,
+  activateAccountSuccess,
   signInFailure,
   signInSuccess,
   signOutFailure,
@@ -92,16 +92,16 @@ export function* signUp({
   }
 }
 
-export function* activeAccount({ payload: id }) {
+export function* activateAccount({ payload: id }) {
   try {
     const resp = yield fetchWithoutToken(`users/activate/${id}`, {}, 'PATCH');
     const body = yield resp.json();
+    if (body.status === 'success') return yield put(activateAccountSuccess());
 
-    if (body.status === 'success') return yield put(activeAccountSuccess());
-    
     throw new Error(body.error.message);
   } catch (error) {
-    return yield put(activeAccountFailure(error.message));
+    console.log(error);
+    return yield put(activateAccountFailure(error.message));
   }
 }
 
@@ -121,12 +121,12 @@ export function* onSignUpStart() {
   yield takeLatest(authActionTypes.SIGN_UP_START, signUp);
 }
 
-export function* onActiveAccountStart() {
-  yield takeLatest(authActionTypes.ACTIVE_ACCOUNT_START, activeAccount);
+export function* onActivateAccountStart() {
+  yield takeLatest(authActionTypes.ACTIVATE_ACCOUNT_START, activateAccount);
 }
 
-export function* onActiveAccountSuccess() {
-  yield takeLatest(authActionTypes.ACTIVE_ACCOUNT_SUCCESS, renewToken);
+export function* onActivateAccountSuccess() {
+  yield takeLatest(authActionTypes.ACTIVATE_ACCOUNT_SUCCESS, renewToken);
 }
 
 export function* authSagas() {
@@ -135,7 +135,7 @@ export function* authSagas() {
     call(onRefreshTokenStart),
     call(onSignOutStart),
     call(onSignUpStart),
-    call(onActiveAccountStart),
-    call(onActiveAccountSuccess),
+    call(onActivateAccountStart),
+    call(onActivateAccountSuccess),
   ]);
 }

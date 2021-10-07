@@ -4,21 +4,21 @@ import { useHistory, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 
-import { activeAccountStart } from '../../../redux/auth/auth.actions';
+import { activateAccountStart } from '../../../redux/auth/auth.actions';
 import {
   selectActivate,
   selectError,
 } from '../../../redux/auth/auth.selectors';
 import { SpinnerCenter } from '../../../components/spinnerCenter/SpinnerCenter';
 
-export const ActiveScreen = () => {
+export const ActivateScreen = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const error = useSelector(selectError);
   const activate = useSelector(selectActivate);
   const history = useHistory();
 
-  activate ?? dispatch(activeAccountStart(id));
+  activate ?? dispatch(activateAccountStart(id));
 
   if (error !== null && activate === true) {
     Swal.fire(
