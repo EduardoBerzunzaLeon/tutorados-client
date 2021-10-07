@@ -59,3 +59,17 @@ export const activateAccountFailure = (error) => ({
   type: authActionTypes.ACTIVATE_ACCOUNT_FAILURE,
   payload: error,
 });
+
+export const forgotPasswordStart = (user) => ({
+  type: authActionTypes.FORGOT_PASSWORD_START,
+  payload: user,
+});
+
+export const forgotPasswordSuccess = () => ({
+  type: authActionTypes.FORGOT_PASSWORD_SUCCESS,
+});
+
+export const forgotPasswordFailure = (error) => ({
+  type: authActionTypes.FORGOT_PASSWORD_FAILURE,
+  payload: error,
+});

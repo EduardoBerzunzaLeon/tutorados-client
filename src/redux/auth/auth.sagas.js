@@ -4,6 +4,8 @@ import authActionTypes from './auth.types';
 import {
   activateAccountFailure,
   activateAccountSuccess,
+  forgotPasswordFailure,
+  forgotPasswordSuccess,
   signInFailure,
   signInSuccess,
   signOutFailure,
@@ -100,8 +102,31 @@ export function* activateAccount({ payload: id }) {
 
     throw new Error(body.error.message);
   } catch (error) {
-    console.log(error);
     return yield put(activateAccountFailure(error.message));
+  }
+}
+
+export function* forgotPassword({ payload: { email, url } }) {
+  try {
+    const resp = yield fetchWithoutToken(
+      `users/forgot-passowrd/`,
+      { email, url },
+      'POST'
+    );
+    const body = yield resp.json();
+
+    if (body.status === 'success') {
+      Swal.fire(
+        'Éxito',
+        `Se envio al correo: ${email}, la opción de cambiar de contraseña.`,
+        'success'
+      );
+      return yield put(forgotPasswordSuccess());
+    }
+
+    throw new Error(body.error.message);
+  } catch (error) {
+    return yield put(forgotPasswordFailure(error.message));
   }
 }
 
@@ -129,6 +154,10 @@ export function* onActivateAccountSuccess() {
   yield takeLatest(authActionTypes.ACTIVATE_ACCOUNT_SUCCESS, renewToken);
 }
 
+export function* onForgotPasswordStart() {
+  yield takeLatest(authActionTypes.FORGOT_PASSWORD_START, forgotPassword);
+}
+
 export function* authSagas() {
   yield all([
     call(onEmailSignInStart),
@@ -137,5 +166,6 @@ export function* authSagas() {
     call(onSignUpStart),
     call(onActivateAccountStart),
     call(onActivateAccountSuccess),
+    call(onForgotPasswordStart),
   ]);
 }

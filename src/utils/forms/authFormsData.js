@@ -19,3 +19,11 @@ export const registerScreenErrors = {
   first: 'nombre',
   last: 'apellido',
 };
+
+export const forgotPasswordScreenDefaultValues = {
+  email: 'fatima.bernes@gmail.com',
+};
+
+export const forgotPasswordScreenErrors = {
+  email: 'email',
+};
