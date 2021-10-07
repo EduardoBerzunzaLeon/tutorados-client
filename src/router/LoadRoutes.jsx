@@ -9,15 +9,13 @@ import {
 } from '../redux/auth/auth.selectors';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
+import { SpinnerCenter } from '../components/spinnerCenter/SpinnerCenter';
 
 export const LoadRoutes = ({ routes }) => {
   const currentUser = useSelector(selectCurrentUser);
   const checking = useSelector(selectChecking);
 
-  if (checking) {
-    // TODO: do loading
-    return <h5>Loading</h5>;
-  }
+  if (checking) return <SpinnerCenter message="Estamos trabajando..." />;
 
   return (
     <Switch>

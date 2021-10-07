@@ -2,16 +2,18 @@ import { LabelErrorInput } from '../../components/labelErrorInput/LabelErrorInpu
 
 // Change a specific error, work it with react-hook-form
 export const createErrorsArray = (errors, errorsTranslate, setError) => {
-  const errorsArray = errors.split('.');
-  const keys = Object.keys(errorsTranslate);
+  if (!!errors) {
+    const errorsArray = errors.split('.');
+    const keys = Object.keys(errorsTranslate);
 
-  errorsArray.forEach((error) => {
-    keys.forEach((key) => {
-      if (error.includes(errorsTranslate[key])) {
-        setError(key, { type: 'manual', message: error });
-      }
+    errorsArray.forEach((error) => {
+      keys.forEach((key) => {
+        if (error.includes(errorsTranslate[key])) {
+          setError(key, { type: 'manual', message: error });
+        }
+      });
     });
-  });
+  }
 };
 
 export const getFormErrorMessage = (name, errors) => {

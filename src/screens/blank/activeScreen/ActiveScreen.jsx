@@ -1,6 +1,6 @@
 import React from 'react';
+
 import { useHistory, useParams } from 'react-router';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 
@@ -9,6 +9,7 @@ import {
   selectActivate,
   selectError,
 } from '../../../redux/auth/auth.selectors';
+import { SpinnerCenter } from '../../../components/spinnerCenter/SpinnerCenter';
 
 export const ActiveScreen = () => {
   const { id } = useParams();
@@ -19,8 +20,7 @@ export const ActiveScreen = () => {
 
   activate ?? dispatch(activeAccountStart(id));
 
-  if (error === 'No se encontró el token' && activate === true) {
-    // FIXED: cannot update during an existing state transition (such as within `render`);
+  if (error !== null && activate === true) {
     Swal.fire(
       'Éxito',
       'Cuenta activada, favor de iniciar sesión',
@@ -40,11 +40,7 @@ export const ActiveScreen = () => {
     });
   }
 
-  // FIXED: Corregir el posicionamiento del spinner
   return (
-    <div>
-      <h5>Estamos verificando su cuenta, favor espere</h5>
-      <ProgressSpinner />
-    </div>
+    <SpinnerCenter message="Estamos verificando su cuenta, Por favor espere." />
   );
 };

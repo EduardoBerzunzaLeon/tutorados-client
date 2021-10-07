@@ -97,11 +97,8 @@ export function* activeAccount({ payload: id }) {
     const resp = yield fetchWithoutToken(`users/activate/${id}`, {}, 'PATCH');
     const body = yield resp.json();
 
-    if (body.status === 'success') {
-      return yield put(activeAccountSuccess());
-      // TODO
-    }
-
+    if (body.status === 'success') return yield put(activeAccountSuccess());
+    
     throw new Error(body.error.message);
   } catch (error) {
     return yield put(activeAccountFailure(error.message));

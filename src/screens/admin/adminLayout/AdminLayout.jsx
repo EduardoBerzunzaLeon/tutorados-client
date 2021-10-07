@@ -28,7 +28,6 @@ export const AdminLayout = ({ routes }) => {
         visible={siderOpen}
         onHide={() => dispatch(uiCloseSider())}
         showCloseIcon={false}
-        style={{ backgroundColor: '#3b3e47' }}
       >
         <MenuProfile />
         <MenuSlideContent model={menu} />
