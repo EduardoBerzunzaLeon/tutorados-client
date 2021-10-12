@@ -6,6 +6,7 @@ import {
   activateAccountSuccess,
   forgotPasswordFailure,
   forgotPasswordSuccess,
+  resetPasswordFailure,
   signInFailure,
   signInSuccess,
   signOutFailure,
@@ -109,7 +110,7 @@ export function* activateAccount({ payload: id }) {
 export function* forgotPassword({ payload: { email, url } }) {
   try {
     const resp = yield fetchWithoutToken(
-      `users/forgot-passowrd/`,
+      `users/forgotPassword/`,
       { email, url },
       'POST'
     );
@@ -126,7 +127,33 @@ export function* forgotPassword({ payload: { email, url } }) {
 
     throw new Error(body.error.message);
   } catch (error) {
+    Swal.fire('Advertencia', error.message, 'warning');
     return yield put(forgotPasswordFailure(error.message));
+  }
+}
+
+export function* resetPassword({
+  payload: { token, password, confirmPassword },
+}) {
+  try {
+    const resp = yield fetchWithoutToken(
+      `users/resetPassword/${token}`,
+      { password, confirmPassword },
+      'PATCH'
+    );
+
+    const body = yield resp.json();
+
+    if (body.status === 'success') {
+      localStorage.setItem('token', body.token);
+      localStorage.setItem('token-init-date', new Date().getTime());
+      return yield put(signInSuccess(body.data));
+    }
+
+    throw new Error(body.error.message);
+  } catch (error) {
+    // Swal.fire('Error', error.message, 'error');
+    return yield put(resetPasswordFailure(error.message));
   }
 }
 
@@ -158,6 +185,10 @@ export function* onForgotPasswordStart() {
   yield takeLatest(authActionTypes.FORGOT_PASSWORD_START, forgotPassword);
 }
 
+export function* onResetPasswordStart() {
+  yield takeLatest(authActionTypes.RESET_PASSWORD_START, resetPassword);
+}
+
 export function* authSagas() {
   yield all([
     call(onEmailSignInStart),
@@ -167,5 +198,6 @@ export function* authSagas() {
     call(onActivateAccountStart),
     call(onActivateAccountSuccess),
     call(onForgotPasswordStart),
+    call(onResetPasswordStart),
   ]);
 }

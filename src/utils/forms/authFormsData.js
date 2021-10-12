@@ -21,9 +21,18 @@ export const registerScreenErrors = {
 };
 
 export const forgotPasswordScreenDefaultValues = {
-  email: 'fatima.bernes@gmail.com',
+  email: 'eduardoberzunzal@gmail.com',
 };
 
 export const forgotPasswordScreenErrors = {
   email: 'email',
+};
+
+export const resetPasswordScreenDefaultValues = {
+  password: '12345678',
+  confirmPassword: '12345678',
+};
+
+export const resetPasswordScreenErrors = {
+  password: 'contraseña',
 };

@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react';
+
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-
 import { InputText } from 'primereact/inputtext';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectError } from '../../../redux/auth/auth.selectors';
 import { Controller, useForm } from 'react-hook-form';
+import classNames from 'classnames';
+
+import { selectError } from '../../../redux/auth/auth.selectors';
+
 import {
   forgotPasswordScreenDefaultValues as defaultValues,
   forgotPasswordScreenErrors,
 } from '../../../utils/forms/authFormsData';
+
 import {
   createErrorsArray,
   getFormErrorMessage,
 } from '../../../utils/forms/handlerFormErrors';
-import classNames from 'classnames';
+
 import { forgotPasswordStart } from '../../../redux/auth/auth.actions';
 
 export const ForgotPasswordScren = () => {
@@ -35,7 +39,7 @@ export const ForgotPasswordScren = () => {
   const onSubmit = ({ email }) => {
     const sendData = {
       email,
-      url: process.env.REACT_APP_ACTIVE_URL,
+      url: process.env.REACT_APP_RESET_PASSWORD_URL,
     };
     dispatch(forgotPasswordStart(sendData));
   };
@@ -76,10 +80,7 @@ export const ForgotPasswordScren = () => {
           </div>
           {getFormErrorMessage('email', errors)}
         </div>
-
-        {/* <Link to="/reset-password"> */}
         <Button label="Enviar correo de cambio de contraseña" />
-        {/* </Link> */}
       </form>
     </Card>
   );

@@ -39,9 +39,18 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
 
+    case authActionTypes.RESET_PASSWORD_START:
+      return {
+        ...state,
+        checking: true,
+        error: null,
+      };
+
     case authActionTypes.SIGN_IN_FAILURE:
     case authActionTypes.SIGN_OUT_FAILURE:
     case authActionTypes.SIGN_UP_FAILURE:
+    case authActionTypes.FORGOT_PASSWORD_FAILURE:
+    case authActionTypes.RESET_PASSWORD_FAILURE:
       return {
         ...state,
         checking: false,

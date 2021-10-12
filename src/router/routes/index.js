@@ -60,7 +60,7 @@ const routes = [
         private: false,
       },
       {
-        path: '/reset-password/:reset-token',
+        path: '/reset-password/:token',
         component: ResetPasswordScreen,
         exact: true,
         private: false,

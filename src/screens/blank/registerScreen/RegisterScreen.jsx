@@ -3,19 +3,20 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 
 import { useForm, Controller } from 'react-hook-form';
-
 import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
 import { Link } from 'react-router-dom';
-import { InputPassword } from '../../../components/inputPassword/InputPassword';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { InputPassword } from '../../../components/inputPassword/InputPassword';
 import { signUpStart } from '../../../redux/auth/auth.actions';
 import { selectError } from '../../../redux/auth/auth.selectors';
 import {
   createErrorsArray,
   getFormErrorMessage,
 } from '../../../utils/forms/handlerFormErrors';
+
 import {
   registerScreenDefaultValues as defaultValues,
   registerScreenErrors,
@@ -161,7 +162,7 @@ export const RegisterScreen = () => {
                 render={({ field, fieldState }) => (
                   <InputPassword
                     id={field.name}
-                    feedback={false}
+                    feedback={true}
                     {...field}
                     className={classNames({ 'p-invalid': fieldState.invalid })}
                   />
@@ -209,7 +210,7 @@ export const RegisterScreen = () => {
                   name="gender"
                   control={control}
                   rules={{ required: 'Password is required.' }}
-                  render={({ field, fieldState }) => (
+                  render={({ field }) => (
                     <>
                       <div className="p-field-checkbox">
                         <RadioButton

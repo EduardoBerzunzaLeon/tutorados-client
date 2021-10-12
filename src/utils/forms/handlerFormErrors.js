@@ -1,6 +1,6 @@
 import { LabelErrorInput } from '../../components/labelErrorInput/LabelErrorInput';
 
-// Change a specific error, work it with react-hook-form
+// Change a specific error, work at with react-hook-form
 export const createErrorsArray = (errors, errorsTranslate, setError) => {
   if (!!errors) {
     const errorsArray = errors.split('.');
