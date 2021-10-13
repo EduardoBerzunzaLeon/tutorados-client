@@ -126,7 +126,25 @@ export const LoginScreen = () => {
         <span>Ingresar por red social</span>
       </Divider>
 
-      <SlipButton color="purple" icon="google" label="Google" />
+      {/* <SlipButton color="purple" icon="google" label="Google" /> */}
+      {/* Google button */}
+
+      <div
+        id="g_id_onload"
+        data-client_id="470852633553-tlunbjug95qo3eodrus5kf49i0e1ok71.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse"
+        data-auto_prompt="false"
+      ></div>
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left"
+      ></div>
+
       <SlipButton color="indigo" icon="facebook" label="Facebook" />
       <SlipButton color="blue" icon="twitter" label="Twitter" />
     </Card>

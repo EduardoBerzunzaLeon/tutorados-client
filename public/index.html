@@ -43,5 +43,24 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      // TODO: MOVE THIS ON REACT CODE
+      function handleCredentialResponse(response) {
+        // Google token: ID_TOKEN
+        const body = { id_token: response.credential };
+
+        fetch('http://localhost:4000/api/v1/users/google', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        })
+          .then((res) => res.json())
+          .then(console.log)
+          .catch(console.warn);
+      }
+    </script>
   </body>
 </html>
