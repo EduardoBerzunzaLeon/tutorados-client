@@ -5,6 +5,11 @@ export const emailSignInStart = (emailAndPassword) => ({
   payload: emailAndPassword,
 });
 
+export const googleSignInStart = (tokenId) => ({
+  type: authActionTypes.GOOGLE_SIGN_IN_START,
+  payload: tokenId,
+});
+
 export const renewTokenStart = () => ({
   type: authActionTypes.RENEW_TOKEN_START,
 });

@@ -40,6 +40,26 @@ export function* signInWithEmail({ payload: { email, password } }) {
   }
 }
 
+export function* signInWithGoogle({ payload: tokenId }) {
+  yield signInSuccess({ name: 'eduardo' });
+  try {
+    const resp = yield fetchWithoutToken('users/google', { tokenId }, 'POST');
+
+    const body = yield resp.json();
+
+    if (body.status === 'success') {
+      localStorage.setItem('token', body.token);
+      localStorage.setItem('token-init-date', new Date().getTime());
+      return yield put(signInSuccess(body.data));
+    }
+
+    throw new Error(body.error.message);
+  } catch (error) {
+    Swal.fire('Error', error.message, 'error');
+    return yield put(signInFailure(error.message));
+  }
+}
+
 export function* renewToken() {
   try {
     const resp = yield fetchWithToken('users/renew', 'POST');
@@ -161,6 +181,10 @@ export function* onEmailSignInStart() {
   yield takeLatest(authActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
+export function* onGoogleSignInStart() {
+  yield takeLatest(authActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
+}
+
 export function* onRefreshTokenStart() {
   yield takeLatest(authActionTypes.RENEW_TOKEN_START, renewToken);
 }
@@ -192,6 +216,7 @@ export function* onResetPasswordStart() {
 export function* authSagas() {
   yield all([
     call(onEmailSignInStart),
+    call(onGoogleSignInStart),
     call(onRefreshTokenStart),
     call(onSignOutStart),
     call(onSignUpStart),

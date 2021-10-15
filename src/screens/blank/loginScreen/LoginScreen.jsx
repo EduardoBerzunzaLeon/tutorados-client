@@ -1,6 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 
 import { Card } from 'primereact/card';
@@ -8,13 +10,28 @@ import { Button } from 'primereact/button';
 import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 
-import { useDispatch } from 'react-redux';
 import { emailSignInStart } from '../../../redux/auth/auth.actions';
 import { SlipButton } from '../../../components/slipButton/SlipButton';
-import classNames from 'classnames';
 import { InputPassword } from '../../../components/inputPassword/InputPassword';
 import { getFormErrorMessage } from '../../../utils/forms/handlerFormErrors';
 import { loginScreenDefaultValues as defaultValues } from '../../../utils/forms/authFormsData';
+import { GoogleButton } from '../../../components/googleButton/GoogleButton';
+
+// function handleCredentialResponse(response) {
+//   // Google token: ID_TOKEN
+//   const body = { id_token: response.credential };
+
+//   fetch('http://localhost:4000/api/v1/users/google', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(body),
+//   })
+//     .then((res) => res.json())
+//     .then(console.log)
+//     .catch(console.warn);
+// }
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();
@@ -122,28 +139,12 @@ export const LoginScreen = () => {
 
         <Button type="submit" label="Ingresar" />
       </form>
+
       <Divider align="center" type="dashed">
         <span>Ingresar por red social</span>
       </Divider>
 
-      {/* <SlipButton color="purple" icon="google" label="Google" /> */}
-      {/* Google button */}
-
-      <div
-        id="g_id_onload"
-        data-client_id="470852633553-tlunbjug95qo3eodrus5kf49i0e1ok71.apps.googleusercontent.com"
-        data-callback="handleCredentialResponse"
-        data-auto_prompt="false"
-      ></div>
-      <div
-        class="g_id_signin"
-        data-type="standard"
-        data-size="large"
-        data-theme="outline"
-        data-text="sign_in_with"
-        data-shape="rectangular"
-        data-logo_alignment="left"
-      ></div>
+      <GoogleButton />
 
       <SlipButton color="indigo" icon="facebook" label="Facebook" />
       <SlipButton color="blue" icon="twitter" label="Twitter" />
