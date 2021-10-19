@@ -16,6 +16,7 @@ import { InputPassword } from '../../../components/inputPassword/InputPassword';
 import { getFormErrorMessage } from '../../../utils/forms/handlerFormErrors';
 import { loginScreenDefaultValues as defaultValues } from '../../../utils/forms/authFormsData';
 import { GoogleButton } from '../../../components/googleButton/GoogleButton';
+import { FacebookButton } from '../../../components/facebookButton/FacebookButton';
 
 // function handleCredentialResponse(response) {
 //   // Google token: ID_TOKEN
@@ -144,10 +145,14 @@ export const LoginScreen = () => {
         <span>Ingresar por red social</span>
       </Divider>
 
-      <GoogleButton />
-
-      <SlipButton color="indigo" icon="facebook" label="Facebook" />
-      <SlipButton color="blue" icon="twitter" label="Twitter" />
+      <div className="p-grid p-formgrid p-fluid">
+        <div className="p-col-12 p-lg-6">
+          <GoogleButton />
+        </div>
+        <div className="p-col-12 p-lg-6">
+          <FacebookButton />
+        </div>
+      </div>
     </Card>
   );
 };

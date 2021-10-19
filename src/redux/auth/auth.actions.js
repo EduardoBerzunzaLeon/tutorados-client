@@ -10,6 +10,11 @@ export const googleSignInStart = (tokenId) => ({
   payload: tokenId,
 });
 
+export const facebookSignInStart = (tokenId) => ({
+  type: authActionTypes.FACEBOOK_SIGN_IN_START,
+  payload: tokenId,
+});
+
 export const renewTokenStart = () => ({
   type: authActionTypes.RENEW_TOKEN_START,
 });

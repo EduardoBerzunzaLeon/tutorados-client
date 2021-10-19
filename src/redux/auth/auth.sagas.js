@@ -41,7 +41,6 @@ export function* signInWithEmail({ payload: { email, password } }) {
 }
 
 export function* signInWithGoogle({ payload: tokenId }) {
-  yield signInSuccess({ name: 'eduardo' });
   try {
     const resp = yield fetchWithoutToken('users/google', { tokenId }, 'POST');
 
@@ -56,6 +55,27 @@ export function* signInWithGoogle({ payload: tokenId }) {
     throw new Error(body.error.message);
   } catch (error) {
     Swal.fire('Error', error.message, 'error');
+    return yield put(signInFailure(error.message));
+  }
+}
+
+export function* signInWithFacebook({ payload: tokenId }) {
+  try {
+    // const resp = yield fetchWithoutToken('users/facebook', { tokenId }, 'POST');
+
+    // const body = yield resp.json();
+    console.log(tokenId);
+    // if (body.status === 'success') {
+    // localStorage.setItem('token', body.token);
+    // localStorage.setItem('token-init-date', new Date().getTime());
+    return yield put(
+      signInSuccess({ name: { first: 'eduardo', last: 'berzunza' } })
+    );
+    // }
+
+    // throw new Error(body.error.message);
+  } catch (error) {
+    // Swal.fire('Error', error.message, 'error');
     return yield put(signInFailure(error.message));
   }
 }
@@ -185,6 +205,10 @@ export function* onGoogleSignInStart() {
   yield takeLatest(authActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
 
+export function* onFacebookSignInStart() {
+  yield takeLatest(authActionTypes.FACEBOOK_SIGN_IN_START, signInWithFacebook);
+}
+
 export function* onRefreshTokenStart() {
   yield takeLatest(authActionTypes.RENEW_TOKEN_START, renewToken);
 }
@@ -217,6 +241,7 @@ export function* authSagas() {
   yield all([
     call(onEmailSignInStart),
     call(onGoogleSignInStart),
+    call(onFacebookSignInStart),
     call(onRefreshTokenStart),
     call(onSignOutStart),
     call(onSignUpStart),
