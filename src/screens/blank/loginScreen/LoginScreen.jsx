@@ -11,28 +11,11 @@ import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 
 import { emailSignInStart } from '../../../redux/auth/auth.actions';
-import { SlipButton } from '../../../components/slipButton/SlipButton';
 import { InputPassword } from '../../../components/inputPassword/InputPassword';
 import { getFormErrorMessage } from '../../../utils/forms/handlerFormErrors';
 import { loginScreenDefaultValues as defaultValues } from '../../../utils/forms/authFormsData';
 import { GoogleButton } from '../../../components/googleButton/GoogleButton';
 import { FacebookButton } from '../../../components/facebookButton/FacebookButton';
-
-// function handleCredentialResponse(response) {
-//   // Google token: ID_TOKEN
-//   const body = { id_token: response.credential };
-
-//   fetch('http://localhost:4000/api/v1/users/google', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(body),
-//   })
-//     .then((res) => res.json())
-//     .then(console.log)
-//     .catch(console.warn);
-// }
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();

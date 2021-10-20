@@ -61,21 +61,18 @@ export function* signInWithGoogle({ payload: tokenId }) {
 
 export function* signInWithFacebook({ payload: tokenId }) {
   try {
-    // const resp = yield fetchWithoutToken('users/facebook', { tokenId }, 'POST');
+    const resp = yield fetchWithoutToken('users/facebook', { tokenId }, 'POST');
+    const body = yield resp.json();
 
-    // const body = yield resp.json();
-    console.log(tokenId);
-    // if (body.status === 'success') {
-    // localStorage.setItem('token', body.token);
-    // localStorage.setItem('token-init-date', new Date().getTime());
-    return yield put(
-      signInSuccess({ name: { first: 'eduardo', last: 'berzunza' } })
-    );
-    // }
+    if (body.status === 'success') {
+      localStorage.setItem('token', body.token);
+      localStorage.setItem('token-init-date', new Date().getTime());
+      return yield put(signInSuccess(body.data));
+    }
 
-    // throw new Error(body.error.message);
+    throw new Error(body.error.message);
   } catch (error) {
-    // Swal.fire('Error', error.message, 'error');
+    Swal.fire('Error', error.message, 'error');
     return yield put(signInFailure(error.message));
   }
 }
