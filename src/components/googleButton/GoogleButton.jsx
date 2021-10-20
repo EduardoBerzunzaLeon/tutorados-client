@@ -9,7 +9,6 @@ export const GoogleButton = () => {
   const dispatch = useDispatch();
 
   const responseGoogle = (response) => {
-    console.log(response);
     if (response.tokenId) {
       dispatch(googleSignInStart(response.tokenId));
     } else {

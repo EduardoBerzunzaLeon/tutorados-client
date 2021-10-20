@@ -10,7 +10,6 @@ export const FacebookButton = () => {
   const dispatch = useDispatch();
 
   const responseFacebook = (response) => {
-    // console.log(response);
     if (response.accessToken) {
       dispatch(facebookSignInStart(response.accessToken));
     } else {
