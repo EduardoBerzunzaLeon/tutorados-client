@@ -14,3 +14,6 @@ describe('Pruebas en el archivo demo.test.js', () => {
 // Comparar si dos objetos tienen las misma propiedades y valor es toEqual
 // Por que el toBe analiza con === pero la igualdad es por referencia en objetos y arreglos
 // {} === {} return false
+// Cuando se prueban promesas se usan done de parametro y se manda a llamar para indicar
+// que ya termino el proceso (done)  => done();
+// Cuando se usa el async usa antespara esperar el await async () => const url await getImagen() ... luego el expect
