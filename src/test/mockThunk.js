@@ -20,7 +20,7 @@ describe('Tests in the auth actions', () => {
   });
 
   test('startLogin correct', async () => {
-    store.dispatch(
+    await store.dispatch(
       emailSignInStart({
         email: 'eduardoberzunzal@gmail.com',
         password: '12345678',

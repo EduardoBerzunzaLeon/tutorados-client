@@ -123,7 +123,7 @@ export function* signUp({
         `¡Felicidades! se creo su usuario, le enviamos un correo de verificación a ${email}.`,
         'success'
       );
-      return yield put(signUpSuccess(body.data));
+      return yield put(signUpSuccess());
     }
 
     throw new Error(body.error.message);
